@@ -39,7 +39,7 @@ public class ShoppingCartDaoImpl implements ShoppingCartDao {
     public Optional<ShoppingCart> getByUser(User user) {
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             return Optional.ofNullable(session
-                    .createQuery("From ShoppingCart sc where sc.User = :user", ShoppingCart.class)
+                    .createQuery("From ShoppingCart sc where sc.user = :user", ShoppingCart.class)
                     .setParameter("user", user)
                     .getSingleResultOrNull());
         }

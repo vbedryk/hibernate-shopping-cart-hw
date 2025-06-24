@@ -15,7 +15,6 @@ public class ShoppingCart {
     @OneToMany(mappedBy = "shoppingCart")
     private List<Ticket> tickets;
     @ManyToOne
-    @MapsId
     private User user;
 
     public Long getId() {
