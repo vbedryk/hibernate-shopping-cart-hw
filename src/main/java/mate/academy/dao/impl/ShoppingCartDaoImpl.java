@@ -26,7 +26,7 @@ public class ShoppingCartDaoImpl implements ShoppingCartDao {
             if (transaction != null) {
                 transaction.rollback();
             }
-            throw new DataProcessingException("Can't add Shopping Card to DB : "
+            throw new DataProcessingException("Can't add ShoppingCart to DB : "
                     + shoppingCart, e);
         } finally {
             if (session != null) {
@@ -39,8 +39,9 @@ public class ShoppingCartDaoImpl implements ShoppingCartDao {
     public Optional<ShoppingCart> getByUser(User user) {
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             return Optional.ofNullable(session
-                    .createQuery("From ShoppingCard sc where sc.User = user", ShoppingCart.class)
-                            .getSingleResultOrNull());
+                    .createQuery("From ShoppingCart sc where sc.User = :user", ShoppingCart.class)
+                    .setParameter("user", user)
+                    .getSingleResultOrNull());
         }
     }
 
@@ -57,7 +58,7 @@ public class ShoppingCartDaoImpl implements ShoppingCartDao {
             if (transaction != null) {
                 transaction.rollback();
             }
-            throw new DataProcessingException("Can't update Shopping Card in DB : "
+            throw new DataProcessingException("Can't update ShoppingCart in DB : "
                     + shoppingCart, e);
         } finally {
             if (session != null) {
